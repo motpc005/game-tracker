@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${game.id == null} ? 'add game' : 'Edit Game'">Game</title>
+	<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+	<div class="form-box">
+		<h1 th:text="${game.id == null} ? 'add game' : 'edit game'">add game</h1>
+		<a th:href="@{/games}">home</a>
+
+		<form th:action="${game.id == null} ? @{/games} : @{/games/{id}(id=${game.id})}" th:object="${game}"
+			method="post">
+
+			<!-- text fields -->
+			<p>
+				<label>title</label>
+				<input type="text" th:field="*{title}">
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+			</p>
+			<p>
+				<label>genre</label>
+				<input type="text" th:field="*{genre}">
+				<span th:if="${#fields.hasErrors('genre')}" th:errors="*{genre}"></span>
+			</p>
+
+			<!-- dropdowns -->
+			<p>
+				<label>platform</label>
+				<select th:field="*{platform}">
+					<option value="steam">steam</option>
+					<option value="playstation">playstation</option>
+					<option value="switch">switch</option>
+				</select>
+			</p>
+			<p>
+				<label>status</label>
+				<select th:field="*{status}">
+					<option value="backlog">backlog</option>
+					<option value="playing">playing</option>
+					<option value="finished">finished</option>
+					<option value="replay">replay</option>
+				</select>
+			</p>
+
+			<!-- numbers -->
+			<p>
+				<label>rating</label>
+				<input type="number" min="1" max="10" th:field="*{rating}">
+				<span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></span>
+			</p>
+			<p>
+				<label>hours played</label>
+				<input type="number" step="0.1" min="0" th:field="*{hoursPlayed}">
+				<span th:if="${#fields.hasErrors('hoursPlayed')}" th:errors="*{hoursPlayed}"></span>
+			</p>
+
+			<!-- notes and dates -->
+			<p>
+				<label>notes</label>
+				<textarea th:field="*{notes}"></textarea>
+			</p>
+			<p>
+				<label>date added</label>
+				<input type="date" th:field="*{dateAdded}">
+			</p>
+			<p>
+				<label>date finished</label>
+				<input type="date" th:field="*{dateFinished}">
+			</p>
+
+			<button type="submit">save</button>
+		</form>
+	</div>
+</body>
+
+</html>

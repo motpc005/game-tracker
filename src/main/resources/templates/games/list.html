@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--/* list.html: the main page, shows all games in a table.
+       controller: GameController, GET /games
+       it receives "games" (a list of Game objects) from the model. */-->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<!--/* text shown in the browser tab */-->
+	<title>Game Tracker</title>
+	<!--/* @{/style.css} builds the link to static/style.css */-->
+	<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+	<h1>my games</h1>
+
+	<!--/* link to the add form: GET /games/new */-->
+	<a th:href="@{/games/new}">add game</a>
+
+	<!--/* search and filter form.
+	       method="get" puts the choices in the url,
+	       like /games?status=playing.
+	       the name="..." of each field must match the
+	       @RequestParam names in the controller
+	       (keyword, status, genre). */-->
+	<form th:action="@{/games}" method="get">
+		<!--/* keyword: searches the title */-->
+		<input type="text" name="keyword" placeholder="search title">
+
+		<!--/* status filter. the empty value means no filter. */-->
+		<select name="status">
+			<option value="">all statuses</option>
+			<option value="backlog">backlog</option>
+			<option value="playing">playing</option>
+			<option value="finished">finished</option>
+			<option value="replay">replay</option>
+		</select>
+
+		<!--/* genre filter. typed by hand for now,
+		       later it could be built from the database. */-->
+		<select name="genre">
+			<option value="">all genres</option>
+			<option value="rpg">rpg</option>
+			<option value="3d platformer">3d platformer</option>
+			<option value="racing">racing</option>
+			<option value="looter shooter">looter shooter</option>
+			<option value="dungeon crawler">dungeon crawler</option>
+		</select>
+
+		<button type="submit">apply</button>
+	</form>
+
+	<table border="1">
+		<!--/* header row: column names */-->
+		<tr>
+			<th>title</th>
+			<th>genre</th>
+			<th>platform</th>
+			<th>status</th>
+			<th>rating</th>
+			<th>actions</th>
+		</tr>
+
+		<!--/* th:each repeats this row once per game.
+		       "game" is the current game in the loop,
+		       ${games} is the list from the controller. */-->
+		<tr th:each="game : ${games}">
+			<!--/* th:text puts the value inside the tag */-->
+			<td th:text="${game.title}"></td>
+			<td th:text="${game.genre}"></td>
+			<td th:text="${game.platform}"></td>
+
+			<!--/* status pill. th:classappend adds the status
+			       (backlog, playing...) as a css class,
+			       so style.css can color each one. */-->
+			<td>
+				<span class="status" th:classappend="${game.status}"
+					th:text="${game.status}"></span>
+			</td>
+
+			<td th:text="${game.rating}"></td>
+
+			<td>
+				<!--/* edit link: GET /games/{id}/edit */-->
+				<a th:href="@{/games/{id}/edit(id=${game.id})}">edit</a>
+
+				<!--/* delete is a form with method="post" because
+				       deleting changes data (links can only GET).
+				       onsubmit shows a confirm popup, and returning
+				       false cancels the delete. */-->
+				<form th:action="@{/games/{id}/delete(id=${game.id})}" method="post"
+					onsubmit="return confirm('Are you sure you want to delete this game?');">
+					<button type="submit">delete</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+</body>
+
+</html>

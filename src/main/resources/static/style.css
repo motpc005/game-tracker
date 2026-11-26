@@ -1,0 +1,168 @@
+/* =========================
+   BASE
+   ========================= */
+body {
+	background-color: #f4f6f8;
+	font-family: "Segoe UI", Arial, sans-serif;
+	margin: 20px;
+}
+
+h1 {
+	text-align: center;
+	color: #2c3e50;
+}
+
+/* capitalize displayed text (stored data stays lowercase) */
+td,
+th,
+option,
+select,
+a,
+h1,
+button,
+label,
+input::placeholder {
+	text-transform: capitalize;
+}
+
+
+/* =========================
+   TOP BAR: add link + search form
+   ========================= */
+a[href="/games/new"],
+form[method="get"] {
+	margin-left: 5%;
+}
+
+a[href="/games/new"] {
+	margin-bottom: 15px;
+}
+
+form[method="get"] {
+	margin-bottom: 20px;
+}
+
+input[type="text"],
+select {
+	padding: 6px;
+	border: 1px solid #b0b8c0;
+	border-radius: 4px;
+}
+
+
+/* =========================
+   BUTTONS AND LINK-BUTTONS
+   ========================= */
+button,
+a[href="/games/new"],
+a[href$="/edit"] {
+	display: inline-block;
+	padding: 6px 12px;
+	background-color: #2c3e50;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	text-decoration: none;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+button:hover,
+a[href="/games/new"]:hover,
+a[href$="/edit"]:hover {
+	background-color: #3d566e;
+}
+
+
+/* =========================
+   TABLE
+   ========================= */
+table {
+	border-collapse: collapse;
+	width: 90%;
+	margin: 0 auto;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+	padding: 8px;
+	text-align: left;
+}
+
+th {
+	background-color: #2c3e50;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #e8ecf0;
+}
+
+tr:hover td {
+	background-color: #d6e4f0;
+}
+
+
+/* =========================
+   ACTIONS COLUMN (edit + delete)
+   ========================= */
+td:last-child {
+	width: 1%;
+	white-space: nowrap;
+}
+
+td form {
+	display: inline-block;
+	margin: 0 0 0 6px;
+}
+
+a[href$="/edit"],
+td button {
+	font-size: 14px;
+	vertical-align: middle;
+}
+
+/* delete button is red */
+td button {
+	background-color: #c0392b;
+}
+
+td button:hover {
+	background-color: #e74c3c;
+}
+
+
+/* =========================
+   STATUS PILLS
+   ========================= */
+.status {
+	padding: 3px 10px;
+	border-radius: 12px;
+	font-size: 13px;
+	color: white;
+}
+
+.backlog {
+	background-color: #7f8c8d;
+}
+
+.playing {
+	background-color: #27ae60;
+}
+
+.finished {
+	background-color: #2980b9;
+}
+
+.replay {
+	background-color: #8e44ad;
+}
+
+/* =========================
+   ADD / EDIT FORM 
+   =========================*/
+ .form-box {
+	max-width: 400px;
+	margin: 0 auto;
+}
